@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .input {
+        @apply font-poppins rounded-xl border border-gray-200 px-5 py-3 font-normal text-black w-full bg-white;
+        @apply placeholder:text-gray-600 placeholder:font-light;
+        @apply focus:outline-none focus:ring-orange focus:ring-1;
+    }
+
+    .textarea {
+        @apply font-poppins rounded-xl border border-gray-200 px-5 py-3 font-normal text-black w-full bg-white;
+        @apply placeholder:text-gray-600 placeholder:font-light;
+        @apply focus:outline-none focus:ring-orange focus:ring-1;
+    }
+
+    .checkbox {
+        @apply rounded border border-white bg-transparent appearance-none w-4 h-4 cursor-pointer relative;
+        @apply focus:outline-none focus:ring-orange focus:ring-1;
+    }
+
+    .checkbox:checked::before {
+        @apply content-[''] block w-2 h-2 bg-orange rounded-[2px] m-auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .label {
+        @apply font-poppins font-light text-sm;
+    }
+
+    .button-primary {
+        @apply font-poppins bg-orange px-2.5 py-[10px] text-black font-medium rounded-[10px];
+        @apply focus:outline-none focus:ring-white focus:ring-1;
+        @apply hover:bg-amber-600;
+        @apply disabled:opacity-55 disabled:pointer-events-none;
+    }
+
+    .button-secondary {
+        @apply font-medium text-red;
+        @apply focus:outline-none focus:font-bold;
+    }
+
+    .error-message {
+        @apply font-light text-red p-0 font-poppins;
+    }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "voice-recognition",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

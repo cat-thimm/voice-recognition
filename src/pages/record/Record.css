@@ -1,0 +1,98 @@
+.recorder-container {
+    width: 80px;
+    background-color: #EF7A00;
+    display: block;
+    border-radius: 100%;
+    box-shadow: 0 0 15px 2px #bdc3c7;
+    cursor: default;
+    transition: .3s all ease-in;
+    position: relative;
+}
+.icon-microphone {
+    color: #fff;
+    font-size: 40px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: .1s all ease-in;
+    position: relative;
+}
+
+.outer {
+    width: 80px;
+    height: 80px;
+    -webkit-transform: scale(1);
+    border-radius: 100%;
+    position: absolute;
+    background-color: transparent;
+    border: 1px solid #7f8c8d;
+    z-index: -1;
+    transition: 1.5s all ease;
+    -webkit-animation: woong 1.5s infinite;
+}
+
+.outer-2 {
+    width: 80px;
+    height: 80px;
+    -webkit-transform: scale(1);
+    border-radius: 100%;
+    position: absolute;
+    background-color: #bdc3c7;
+    z-index: -1;
+    transition: 1.5s all ease;
+    -webkit-animation: woong-2 1.5s infinite;
+    -webkit-animation-delay: 2.5s;
+}
+
+@-webkit-keyframes woong {
+    0% {
+        -webkit-trasform: scale(1.2);
+    }
+    50% {
+        -webkit-transform: scale(1.8);
+        opacity: 0.5;
+    }
+    100% {
+        -webkit-transform: scale(2.4);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes woong-2 {
+    0% {
+        -webkit-transform: scale(1.2);
+        opacity: 0.6;
+    }
+    50% {
+        -webkit-transform: scale(1.6);
+        opacity: 0.5;
+    }
+    100% {
+        -webkit-transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.button-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.record-tab__page{
+    display: flex;
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.record-tab__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
