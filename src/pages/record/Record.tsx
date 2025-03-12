@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   IonButton,
   IonContent,
@@ -33,14 +33,6 @@ const Record: React.FC = () => {
     return () => clearInterval(timer)
   }, [recording])
 
-  useEffect(() => {
-    console.log('HEEEE', record)
-
-    SpeechRecognition.addListener('listeningState', listeningState => {
-      console.log('LISTENING STATE', listeningState)
-    })
-  }, [])
-
   const startRec = async () => {
     const available = await SpeechRecognition.available()
     if (!available) {
@@ -64,9 +56,6 @@ const Record: React.FC = () => {
         (data: { matches: string[] }) => {
           console.log(data)
           if (data.matches.length > 0 && data.matches[0] !== undefined) {
-            // console.log('>>> Partial Result ', data.matches)
-            // console.log('>>> record ', record)
-
             setRecord(data.matches[0])
           }
         }

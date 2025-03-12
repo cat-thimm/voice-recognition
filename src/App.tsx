@@ -44,7 +44,6 @@ const App: React.FC = () => (
         <Route exact path="/record">
           <Record />
         </Route>
-
         <Route exact path="/">
           <Redirect to="/record" />
         </Route>
