@@ -23,15 +23,6 @@ export const useRecording = () => {
   }, [recording])
 
   useEffect(() => {
-    SpeechRecognition.addListener(
-      'partialResults',
-      (data: { matches: string[] }) => {
-        if (data.matches.length > 0 && data.matches[0] !== undefined) {
-          setRecord(data.matches[0])
-        }
-      }
-    )
-
     return () => {
       SpeechRecognition.removeAllListeners()
     }
@@ -57,6 +48,15 @@ export const useRecording = () => {
           partialResults: true,
           popup: true
         })
+
+        await SpeechRecognition.addListener(
+          'partialResults',
+          (data: { matches: string[] }) => {
+            if (data.matches.length > 0 && data.matches[0] !== undefined) {
+              setRecord(data.matches[0])
+            }
+          }
+        )
       } catch (error: any) {
         setErrorMessage(error.message)
       }
