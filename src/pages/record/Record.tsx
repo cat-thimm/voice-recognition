@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   IonButton,
   IonContent,
@@ -6,69 +6,18 @@ import {
   IonIcon,
   IonPage,
   IonTitle,
+  IonToast,
   IonToolbar
 } from '@ionic/react'
-import { SpeechRecognition } from '@capacitor-community/speech-recognition'
 import { micOutline, pauseOutline, stopOutline } from 'ionicons/icons'
 
 import './Record.css'
 
+import { useRecording } from '../../hooks/use-recording'
+
 const Record: React.FC = () => {
-  const [record, setRecord] = useState<string>('')
-  const [recording, setRecording] = useState<boolean>(false)
-  const [elapsedTime, setElapsedTime] = useState<number>(0)
-
-  useEffect(() => {
-    let timer = undefined
-
-    if (recording) {
-      timer = setInterval(() => {
-        setElapsedTime(prevTime => prevTime + 1)
-      }, 1000)
-    } else {
-      clearInterval(timer)
-      setElapsedTime(0) // Reset time when recording stops
-    }
-
-    return () => clearInterval(timer)
-  }, [recording])
-
-  const startRec = async () => {
-    const available = await SpeechRecognition.available()
-    if (!available) {
-      console.error('Speech recognition is not available on this device.')
-      return
-    }
-
-    const status = await SpeechRecognition.requestPermissions()
-    if (status.speechRecognition === 'granted') {
-      setRecording(true)
-
-      await SpeechRecognition.start({
-        language: 'en-US',
-        prompt: 'Say something',
-        partialResults: true,
-        popup: true
-      })
-
-      await SpeechRecognition.addListener(
-        'partialResults',
-        (data: { matches: string[] }) => {
-          console.log(data)
-          if (data.matches.length > 0 && data.matches[0] !== undefined) {
-            setRecord(data.matches[0])
-          }
-        }
-      )
-    } else {
-      console.error('Permission denied for speech recognition.')
-    }
-  }
-
-  const stopRec = async () => {
-    setRecording(false)
-    await SpeechRecognition.stop()
-  }
+  const { record, recording, stopRec, startRec, elapsedTime, errorMessage } =
+    useRecording()
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60)
@@ -84,6 +33,12 @@ const Record: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonToast
+          isOpen={errorMessage !== ''}
+          color="danger"
+          message={errorMessage}
+          duration={5000}
+        />
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="small">Recording</IonTitle>
@@ -93,7 +48,6 @@ const Record: React.FC = () => {
         <div className="record-tab__page">
           <div>
             <h1>Transcript</h1>
-            RECORD
             <p className="recorded-text">{record}</p>
           </div>
 
